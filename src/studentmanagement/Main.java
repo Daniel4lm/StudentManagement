@@ -6,7 +6,7 @@ public class Main {
 	
 	Scanner unos = new Scanner(System.in);
 	
-	public static void printMenu() {
+	private void printMenu() {
 		
 		System.out.println("\n Odaberite izbor:\n"
 				+ "1 - Unos novog studenta u bazu\n"
@@ -22,11 +22,11 @@ public class Main {
 		int choice = 0;
 		String idStud;
 		
-		printMenu();
-		
-		Management baza = new Management();
+		StudentManagement baza = new StudentManagement();
 				
 		do {
+			
+			printMenu();
 			
 			choice = unos.nextInt();
 			
@@ -68,7 +68,7 @@ public class Main {
 				break;
 			}
 			
-			printMenu();			
+			//printMenu();			
 			
 		} while (choice != 0);
 		

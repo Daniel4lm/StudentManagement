@@ -2,21 +2,18 @@ package studentmanagement;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Management {
+public class StudentManagement {
 
 	private Scanner unos = new Scanner(System.in);
 	// Kolekcija koja sadrzi student objekte
 	private ArrayList<Student> studentCollection;
 
-	public Management() {
+	public StudentManagement() {
 		// privremena lista studenata
 		Student[] students = {
 				new Student("44", "Daniel", "Molnar", "30.11.1983", "43-II"),
