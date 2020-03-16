@@ -10,17 +10,17 @@ public class Main {
 		
 		System.out.println("\n Odaberite izbor:\n"
 				+ "1 - Unos novog studenta u bazu\n"
-				+ "2 - Ispisati listu svih studenata u bazi\n"
-				+ "3 - Ispisivanje podataka individualnog student\n"
+				+ "2 - Ispisati listu studenata u bazi\n"
+				+ "3 - Ispisivanje podataka individualnog studenta\n"
 				+ "4 - Editovanje postojeceg studenta\n"
 				+ "5 - Brisanje studenta iz baze podataka\n"
-				+ "0 - kraj programa");		
+				+ "0 - kraj programa");	
 	}
 	
 	public void printChoice() {
 		
 		int choice = 0;
-		String idStud;
+		Integer idStud;
 		
 		StudentManagement baza = new StudentManagement();
 				
@@ -35,13 +35,25 @@ public class Main {
 			case 1:				
 				baza.newStudent();				
 				break;
-			case 2:				
-				baza.printStudents();				
-				break;
+			case 2:	
+				System.out.println("Odaberite opciju:\n"
+									+ "  a - Lista svih studenata\n"
+									+ "  b - Lista od - do studenata\n");
+				char opc = unos.next().charAt(0);
+				if(opc == 'a') {
+					baza.printAllDBStudents();				
+					break;
+				} else if(opc == 'b') {
+					System.out.println("Odaberite opseg redova za ispis iz tabele: od(X) do(N)");
+					int x = unos.nextInt(), n = unos.nextInt();
+					baza.printFromToDBStudents(x, n);
+					break;
+				}
+				
 			case 3:
 				
 				System.out.print("Unesite ID studenta:");
-				idStud = unos.next();
+				idStud = unos.nextInt();
 								
 				baza.printStudent(idStud);
 				
@@ -49,7 +61,7 @@ public class Main {
 			case 4:
 				
 				System.out.print("Unesite ID studenta:");
-				idStud = unos.next();
+				idStud = unos.nextInt();
 				
 				baza.editStudent(idStud);
 				
@@ -57,19 +69,18 @@ public class Main {
 			case 5:
 				
 				System.out.print("Unesite ID studenta:");
-				idStud = unos.next();
+				idStud = unos.nextInt();
 				
 				baza.deleteStudent(idStud);
 				
 				break;
 			case 0:
-				
+				System.out.println("Zatvaram bazu posataka ...");
+				baza.closeDBConnection();
 				System.out.println("Izlaz iz programa ...");
 				break;
 			}
-			
-			//printMenu();			
-			
+						
 		} while (choice != 0);
 		
 	}

@@ -2,29 +2,39 @@ package studentmanagement;
 
 public class Student {
 
-	private String studentId;
+	private Integer studentId;
 	private String firstName;
 	private String lastName;
-	private String indexNumber;
 	private String dob;
+	private String indexNumber;
+	private Integer ID_mjesto;
 
 	public Student() {
-
+		
 	}
 
-	public Student(String studentId, String firstName, String lastName, String dob, String indexNumber) {
+	public Student(Integer studentId, String firstName, String lastName, String dob, String indexNumber, Integer ID_mjesto) {
 		this.studentId = studentId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.indexNumber = indexNumber;
 		this.dob = dob;
+		this.ID_mjesto = ID_mjesto;
+	}
+		
+	public Integer getID_mjesto() {
+		return ID_mjesto;
 	}
 
-	public String getStudentId() {
+	public void setID_mjesto(Integer iD_mjesto) {
+		ID_mjesto = iD_mjesto;
+	}
+
+	public Integer getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(String studentId) {
+	public void setStudentId(Integer studentId) {
 		this.studentId = studentId;
 	}
 
