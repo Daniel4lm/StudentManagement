@@ -32,10 +32,13 @@ public class Main {
 			
 			switch (choice) {
 			
-			case 1:				
+			case 1:		
+				
 				baza.newStudent();				
 				break;
+				
 			case 2:	
+				
 				System.out.println("Odaberite opciju:\n"
 									+ "  a - Lista svih studenata\n"
 									+ "  b - Lista od - do studenata\n");
@@ -53,28 +56,26 @@ public class Main {
 			case 3:
 				
 				System.out.print("Unesite ID studenta:");
-				idStud = unos.nextInt();
-								
-				baza.printStudent(idStud);
-				
+				idStud = unos.nextInt();								
+				baza.printStudent(idStud);				
 				break;
+				
 			case 4:
 				
 				System.out.print("Unesite ID studenta:");
-				idStud = unos.nextInt();
-				
-				baza.editStudent(idStud);
-				
+				idStud = unos.nextInt();				
+				baza.editStudent(idStud);				
 				break;
+				
 			case 5:
 				
 				System.out.print("Unesite ID studenta:");
-				idStud = unos.nextInt();
-				
-				baza.deleteStudent(idStud);
-				
+				idStud = unos.nextInt();				
+				baza.deleteStudent(idStud);				
 				break;
+				
 			case 0:
+				
 				System.out.println("Zatvaram bazu posataka ...");
 				baza.closeDBConnection();
 				System.out.println("Izlaz iz programa ...");

@@ -2,6 +2,7 @@ package studentmanagement;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -306,9 +307,10 @@ public class StudentManagement {
 
 		Integer newId = id;
 		char changeChoice;
-
-		Student tempSt = returnStudent(id);
-
+		//Student tempSt = returnStudent(id);		
+		String changeQuery;
+		PreparedStatement changeStatement = null;
+		
 		while (newId != null) {
 			if (!checkDBStudent(newId)) {
 				System.out.println("Student sa datim ID brojem ne postoji u bazi!\n"
@@ -324,48 +326,56 @@ public class StudentManagement {
 				break;
 			}
 		}
+		
+		try {
+						
+			printChangeChoice(); // Printanje izbora za promjenu podataka o studentu
 
-		printChangeChoice();
+			changeChoice = unos.next().charAt(0); // Unos izbora za izmjenu
 
-		changeChoice = unos.next().charAt(0);
-
-		switch (changeChoice) {
-
-		case 'a':
-			System.out.print("Unesite novi ID:");
-			newId = unos.nextInt();
-
-			if (checkDBStudent(newId)) {
-				System.out.println("Postoji vec jedan student sa istim ID brojem!");
-				return;
-			} else {
-				tempSt.setStudentId(newId);
+			switch (changeChoice) { 
+						
+			case 'a':
+				System.out.print("Unesite novo ime:");
+				changeQuery = "UPDATE student SET firstName = ? WHERE ID_Student = " + id;
+				changeStatement = connDB.prepareStatement(changeQuery);
+				changeStatement.setString(1, unos.next());
+				//tempSt.setFirstName(unos.next());
+				break;
+			case 'b':
+				System.out.print("Unesite novo prezime:");
+				changeQuery = "UPDATE student SET lastName = ? WHERE ID_Student = " + id;
+				changeStatement = connDB.prepareStatement(changeQuery);
+				changeStatement.setString(2, unos.next());
+				//tempSt.setLastName(unos.next());
+				break;
+			case 'c':
+				System.out.print("Unesite novi datum rodjenja:");
+				changeQuery = "UPDATE student SET dob = ? WHERE ID_Student = " + id;
+				changeStatement = connDB.prepareStatement(changeQuery);
+				changeStatement.setString(3, unos.next());
+				//tempSt.setDob(unos.next());
+				break;
+			case 'd':
+				System.out.print("Unesite novi broj indeksa:");
+				changeQuery = "UPDATE student SET indexNumber = ? WHERE ID_Student = " + id;
+				changeStatement = connDB.prepareStatement(changeQuery);
+				changeStatement.setString(4, unos.next());
+				//tempSt.setIndexNumber(unos.next());
+				break;
 			}
-
-			break;
-		case 'b':
-			System.out.print("Unesite novo ime:");
-			tempSt.setFirstName(unos.next());
-			break;
-		case 'c':
-			System.out.print("Unesite novo prezime:");
-			tempSt.setLastName(unos.next());
-			break;
-		case 'd':
-			System.out.print("Unesite novi datum rodjenja:");
-			tempSt.setDob(unos.next());
-			break;
-		case 'e':
-			System.out.print("Unesite novi broj indeksa:");
-			tempSt.setIndexNumber(unos.next());
-			break;
+			changeStatement.executeUpdate();
+			System.out.println("Update se izvrsava ...");
+			
+		} catch (SQLException changeSQL) {
+			System.err.println(changeSQL);
 		}
+			
 	}
 
 	public void printChangeChoice() {
-
-		System.out.println("Izaberiste sta zelite editovati:\n" + "a - ID broj\n" + "b - Ime\n" + "c - Pezime\n"
-				+ "d - Datum rodjenja\n" + "e - Broj indeksa");
+		System.out.println("Izaberiste sta zelite editovati:\n" + "a - Ime\n" + "b - Pezime\n"
+				+ "c - Datum rodjenja\n" + "d - Broj indeksa");
 	}
 
 	/* Brisanje studenta iz kolekcije */
