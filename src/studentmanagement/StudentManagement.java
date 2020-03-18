@@ -193,22 +193,22 @@ public class StudentManagement {
 
 	/* Ispis svih zapisa o studentima iz baze podataka */
 	public void printFromToDBStudents(Integer x, Integer n) {
-		
-		String rowCounter = "SELECT COUNT(*) FROM student";		
+
+		String rowCounter = "SELECT COUNT(*) FROM student";
 		ResultSet counterResult = null;
 		int rowCount;
-		
+
 		try {
 			counterResult = connDB.createStatement().executeQuery(rowCounter);
 			counterResult.next();
 			rowCount = counterResult.getInt(1);
 			System.out.println("Broj zapisa u tabeli je: " + rowCount + "\n");
-			
-			if(rowCount == 0 || rowCount <= x) {
+
+			if (rowCount == 0 || rowCount <= x) {
 				System.out.println("U bazi ne postoje zapisi u odabranom opsegu!");
 				return;
-			} 
-			
+			}
+
 			queryStatement = connDB.createStatement();
 			setResults = queryStatement.executeQuery("SELECT * FROM student LIMIT " + n + ", " + x);
 
@@ -245,9 +245,9 @@ public class StudentManagement {
 	}
 
 	/* Printanje individualnog studenta */
-	public void printStudent(Integer id) {
+	public void printStudent(Integer Id) {
 
-		Integer newId = id;
+		Integer newId = Id;
 
 		while (newId != null) {
 			if (!checkDBStudent(newId)) {
@@ -303,14 +303,14 @@ public class StudentManagement {
 	}
 
 	/* Editovanje Student objekta */
-	public void editStudent(Integer id) {
+	public void editStudent(Integer Id) {
 
-		Integer newId = id;
+		Integer newId = Id;
 		char changeChoice;
-		//Student tempSt = returnStudent(id);		
+		// Student tempSt = returnStudent(id);
 		String changeQuery;
 		PreparedStatement changeStatement = null;
-		
+
 		while (newId != null) {
 			if (!checkDBStudent(newId)) {
 				System.out.println("Student sa datim ID brojem ne postoji u bazi!\n"
@@ -326,76 +326,106 @@ public class StudentManagement {
 				break;
 			}
 		}
-		
+
 		try {
-						
+
 			printChangeChoice(); // Printanje izbora za promjenu podataka o studentu
 
 			changeChoice = unos.next().charAt(0); // Unos izbora za izmjenu
 
-			switch (changeChoice) { 
-						
+			switch (changeChoice) {
+
 			case 'a':
 				System.out.print("Unesite novo ime:");
-				changeQuery = "UPDATE student SET firstName = ? WHERE ID_Student = " + id;
+				changeQuery = "UPDATE student SET firstName = ? WHERE ID_Student = " + Id;
 				changeStatement = connDB.prepareStatement(changeQuery);
 				changeStatement.setString(1, unos.next());
-				//tempSt.setFirstName(unos.next());
+				// tempSt.setFirstName(unos.next());
 				break;
 			case 'b':
 				System.out.print("Unesite novo prezime:");
-				changeQuery = "UPDATE student SET lastName = ? WHERE ID_Student = " + id;
+				changeQuery = "UPDATE student SET lastName = ? WHERE ID_Student = " + Id;
 				changeStatement = connDB.prepareStatement(changeQuery);
 				changeStatement.setString(2, unos.next());
-				//tempSt.setLastName(unos.next());
+				// tempSt.setLastName(unos.next());
 				break;
 			case 'c':
 				System.out.print("Unesite novi datum rodjenja:");
-				changeQuery = "UPDATE student SET dob = ? WHERE ID_Student = " + id;
+				changeQuery = "UPDATE student SET dob = ? WHERE ID_Student = " + Id;
 				changeStatement = connDB.prepareStatement(changeQuery);
 				changeStatement.setString(3, unos.next());
-				//tempSt.setDob(unos.next());
+				// tempSt.setDob(unos.next());
 				break;
 			case 'd':
 				System.out.print("Unesite novi broj indeksa:");
-				changeQuery = "UPDATE student SET indexNumber = ? WHERE ID_Student = " + id;
+				changeQuery = "UPDATE student SET indexNumber = ? WHERE ID_Student = " + Id;
 				changeStatement = connDB.prepareStatement(changeQuery);
 				changeStatement.setString(4, unos.next());
-				//tempSt.setIndexNumber(unos.next());
+				// tempSt.setIndexNumber(unos.next());
 				break;
 			}
 			changeStatement.executeUpdate();
 			System.out.println("Update se izvrsava ...");
-			
+
 		} catch (SQLException changeSQL) {
 			System.err.println(changeSQL);
+		} finally {
+			try {
+				changeStatement.close();
+			} catch (SQLException e) {
+				System.err.println(e);
+			}
 		}
-			
+
 	}
 
 	public void printChangeChoice() {
-		System.out.println("Izaberiste sta zelite editovati:\n" + "a - Ime\n" + "b - Pezime\n"
-				+ "c - Datum rodjenja\n" + "d - Broj indeksa");
+		System.out.println("Izaberiste sta zelite editovati:\n" + "a - Ime\n" + "b - Pezime\n" + "c - Datum rodjenja\n"
+				+ "d - Broj indeksa");
 	}
 
 	/* Brisanje studenta iz kolekcije */
-	public void deleteStudent(Integer id) {
+	public void deleteStudent(Integer Id) {
 
-		printStudent(id);
-
-		Student tempSt = returnStudent(id);
+		/*Student tempSt = returnStudent(id);
 
 		if (tempSt == null)
 			return;
-
-		System.out.print("Da li ste sigurni da zelite obrisati studenta iz baze? (d-Da, n-NE");
-
-		char potv = unos.next().charAt(0);
-
-		if (potv == 'd' || potv == 'D') {
-			studentCollection.remove(tempSt);
-		} else if (potv == 'n' || potv == 'N') {
-			return;
+		 */
+		
+		char potv;		
+		String deleteQuery = "DELETE FROM student WHERE ID_student = " + Id;
+		Statement deleteStatement = null;
+		
+		try {
+		
+			deleteStatement = connDB.createStatement();
+		
+			if (checkDBStudent(Id)) {
+				
+				printStudent(Id);
+				System.out.print("Da li ste sigurni da zelite obrisati studenta iz baze? (d-Da, n-NE)");
+				potv = unos.next().charAt(0);
+			
+				if (potv == 'd' || potv == 'D') {
+					//studentCollection.remove(tempSt);
+					deleteStatement.executeUpdate(deleteQuery);
+					System.out.println("Student sa ID brojem " + Id + " je obrisan iz baze podataka!");
+				} else if (potv == 'n' || potv == 'N') {
+					return;
+				}
+			} else {
+				System.out.println("Student sa ID brojem " + Id + " ne postoji u bazi podataka!");
+			}
+			
+		} catch (SQLException deleteSQL) {
+			System.err.println(deleteSQL);
+		} finally {
+			try {
+				deleteStatement.close();
+			} catch (SQLException e) {
+				System.err.println(e);
+			}
 		}
 	}
 
