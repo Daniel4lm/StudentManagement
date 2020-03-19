@@ -41,17 +41,21 @@ public class Main {
 				
 				System.out.println("Odaberite opciju:\n"
 									+ "  a - Lista svih studenata\n"
-									+ "  b - Lista od - do studenata\n");
+									+ "  b - Lista od - do studenata\n"
+									+ "  c - Lista po mjestu rodjenja\n");
+				
 				char opc = unos.next().charAt(0);
 				if(opc == 'a') {
 					baza.printAllDBStudents();				
-					break;
 				} else if(opc == 'b') {
 					System.out.println("Odaberite opseg redova za ispis iz tabele: od(X) do(N)");
 					int x = unos.nextInt(), n = unos.nextInt();
 					baza.printFromToDBStudents(x, n);
-					break;
+				} else if(opc == 'c') {
+					System.out.print("Unesite naziv mjesta stanovanja studenta: ");
+					baza.printStudentByPlace(unos.next());
 				}
+				break;
 				
 			case 3:
 				

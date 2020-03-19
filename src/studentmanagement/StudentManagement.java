@@ -210,16 +210,17 @@ public class StudentManagement {
 			}
 
 			queryStatement = connDB.createStatement();
-			setResults = queryStatement.executeQuery("SELECT * FROM student LIMIT " + n + ", " + x);
+			setResults = queryStatement.executeQuery("SELECT * FROM student LIMIT " + (x - 1) + ", " + (n - x + 1));
 
 			System.out.printf("| %-3s| %-15s| %-15s| %-15s| %-10s| %-3s|%n", "ID", "First name", "Last name", "DOB",
-					"Inx number", "Mjesto rodjenja");
+					"Ind number", "Mjesto rodjenja");
 
 			while (setResults.next()) {
 				System.out.printf("| %-3d| %-15s| %-15s| %-15s| %-10s| %-3d|%n", setResults.getInt(1),
 						setResults.getString(2), setResults.getString(3), setResults.getDate(4),
 						setResults.getString(5), setResults.getInt(6));
 			}
+			
 		} catch (SQLException printe) {
 			System.err.println(printe);
 		} finally {
@@ -231,6 +232,37 @@ public class StudentManagement {
 				System.err.println(e);
 			}
 		}
+	}
+
+	public void printStudentByPlace(String placeName) {
+
+		String joinQuery = "SELECT student.*, mjesto.naziv FROM student " + 
+						   "INNER JOIN mjesto ON mjesto.ID_mjesto = student.mjesto_rodjenja " + 
+				           "WHERE mjesto.naziv = '" + placeName + "'";
+		try {
+			queryStatement = connDB.createStatement();
+			setResults = queryStatement.executeQuery(joinQuery);
+
+			System.out.printf("| %-3s| %-15s| %-15s| %-15s| %-10s| %-3s |%n", "ID", "First name", "Last name", "DOB",
+					"Ind number", "Mjesto rodjenja");
+				
+			while (setResults.next()) {								
+				System.out.printf("| %-3d| %-15s| %-15s| %-15s| %-10s| %-10s |%n", setResults.getInt(1),
+						setResults.getString(2), setResults.getString(3), setResults.getDate(4),
+						setResults.getString(5), setResults.getString(7));
+			}
+
+		} catch (SQLException joinEx) {
+			System.err.println(joinEx);
+		} finally {
+			try {
+				queryStatement.close();
+				setResults.close();
+			} catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+
 	}
 
 	/* Printanje svih studenata iz kolekcije podataka */
@@ -270,7 +302,7 @@ public class StudentManagement {
 			setResults = queryStatement.executeQuery("SELECT * FROM student WHERE ID_Student = " + newId);
 
 			System.out.printf("| %-3s| %-15s| %-15s| %-15s| %-10s| %-3s|%n", "ID", "First name", "Last name", "DOB",
-					"Inx number", "Mjesto rodjenja");
+					"Ind number", "Mjesto rodjenja");
 			setResults.next();
 			System.out.printf("| %-3d| %-15s| %-15s| %-15s| %-10s| %-3d|%n", setResults.getInt(1),
 					setResults.getString(2), setResults.getString(3), setResults.getDate(4), setResults.getString(5),
@@ -387,28 +419,28 @@ public class StudentManagement {
 	/* Brisanje studenta iz kolekcije */
 	public void deleteStudent(Integer Id) {
 
-		/*Student tempSt = returnStudent(id);
-
-		if (tempSt == null)
-			return;
+		/*
+		 * Student tempSt = returnStudent(id);
+		 * 
+		 * if (tempSt == null) return;
 		 */
-		
-		char potv;		
+
+		char potv;
 		String deleteQuery = "DELETE FROM student WHERE ID_student = " + Id;
 		Statement deleteStatement = null;
-		
+
 		try {
-		
+
 			deleteStatement = connDB.createStatement();
-		
+
 			if (checkDBStudent(Id)) {
-				
+
 				printStudent(Id);
 				System.out.print("Da li ste sigurni da zelite obrisati studenta iz baze? (d-Da, n-NE)");
 				potv = unos.next().charAt(0);
-			
+
 				if (potv == 'd' || potv == 'D') {
-					//studentCollection.remove(tempSt);
+					// studentCollection.remove(tempSt);
 					deleteStatement.executeUpdate(deleteQuery);
 					System.out.println("Student sa ID brojem " + Id + " je obrisan iz baze podataka!");
 				} else if (potv == 'n' || potv == 'N') {
@@ -417,7 +449,7 @@ public class StudentManagement {
 			} else {
 				System.out.println("Student sa ID brojem " + Id + " ne postoji u bazi podataka!");
 			}
-			
+
 		} catch (SQLException deleteSQL) {
 			System.err.println(deleteSQL);
 		} finally {
