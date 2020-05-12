@@ -1,0 +1,153 @@
+body {
+    font-family: 'Ubuntu', Arial, 'Trebuchet MS', Tahoma, Verdana, sans-serif;
+    margin: 0;
+}
+
+/*img {
+    -webkit-filter: blur(1px);
+    filter: blur(1px); 
+}*/
+
+.formDiv {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #e8e8e8;
+    background: rgb(0, 0, 0, 20%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    padding: 20px;
+}
+
+.formDiv * {
+    color: #e7e7e7;
+}
+
+.formDiv .leftPanel {
+    width: 60%;
+}
+
+.formDiv .leftPanel .hcl {
+    text-align: center;
+    font-family: 'Ubuntu', Arial, 'Trebuchet MS', Tahoma, Verdana, 'Lucida Sans', sans-serif;
+}
+
+.formDiv .leftPanel .pcl {
+    text-align: left;
+}
+
+.formDiv .leftPanel .showBtn {
+    display: block;
+    margin: 0 auto;
+    width: 20%;
+    font-size: 16px;
+    color: rgb(250, 250, 250, 90%);
+    background-color: rgb(195, 195, 195, 10%);
+    border: 2px solid rgb(195, 195, 195, 50%);
+    padding: 5px;
+    text-align: center;
+    font-family: 'Ubuntu', Arial, 'Trebuchet MS', Tahoma, Verdana, sans-serif;
+    /*text-decoration: none;
+    margin-top: 20px;  */
+}
+
+.formDiv .leftPanel .showBtn:hover {
+    color: rgb(250, 250, 250, 90%);
+    background-color: rgb(195, 195, 195, 30%);
+    border: 2px solid rgb(195, 195, 195, 70%);
+}
+
+.formDiv .leftPanel .showBtn:active {
+    color: rgb(250, 250, 250, 90%);
+    background-color: rgb(195, 195, 195, 50%);
+    border: 2px solid rgb(195, 195, 195, 70%);
+}
+
+.formDiv .rightPanel {
+    width: 40%;
+    font-family: 'Ubuntu', Arial, 'Trebuchet MS', Tahoma, Verdana, sans-serif;
+}
+
+.form-popup {
+    margin: 0 auto;
+    width: 90%;
+    /*right: 15px;*/
+    border: 2px solid rgb(195, 195, 195, 80%);
+    /*z-index: 9;*/
+}
+
+/* Add styles to the form container */
+.form-container {
+    max-width: 100%;
+    padding: 10px;
+    background-color: rgb(195, 195, 195, 10%);
+}
+
+.form-container p {
+    text-align: center;
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.form-container label {
+    margin-left: 5px;
+}
+
+/* Full-width input fields */
+.form-container input[type=text],
+.form-container input[type=password] {
+    width: 100%;
+    padding: 8px 0 8px 2px;
+    margin: 5px 0 22px 0;
+    border: 2px solid rgb(195, 195, 195, 40%);
+    background: rgb(195, 195, 195, 30%);
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus,
+.form-container input[type=password]:focus {
+    background-color: rgb(195, 195, 195, 50%);
+    outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container button {
+    color: rgb(250, 250, 250, 90%);
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    font-family: 'Ubuntu', Arial, 'Trebuchet MS', Tahoma, Verdana, sans-serif;
+}
+
+.btn {
+    font-family: 'Ubuntu', Arial, 'Trebuchet MS', Tahoma, Verdana, sans-serif;
+    background-color: rgb(14, 209, 69, 60%);
+}
+
+.temp {
+    margin: 0px auto;
+    text-align: center;
+    opacity: 0.0;
+    color: whitesmoke;
+    font-size: 10px;
+}
+
+.cancel {
+    font-family: 'Ubuntu', Arial, 'Trebuchet MS', Tahoma, Verdana, sans-serif;
+    background-color: rgb(236, 28, 36, 60%);
+}
+
+/*
+.form-container .btn:hover {
+    background-color: rgb(14, 209, 69, 80%);
+}*/
+
+/*
+.form-container .cancel:hover {
+    background-color: rgb(236, 28, 36, 80%);
+}*/
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Login </title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    
+</head>
+
+<body>
+
+    <img src="pictures/wallpaperflare.intro.jpg" width="100%" >
+
+    <div class="formDiv">
+
+        <div class="leftPanel">
+            <h2 class="hcl"> Student Management System </h2> <br>
+
+            <p class="pcl"> Welcome to the Student Management system where you can: <p></p>
+                <i class="material-icons"
+                    style="margin-left: 10px;margin-right: 5px;vertical-align: middle;font-size: 20px">person_add</i> add new student
+                records<p></p>
+                <i class="material-icons" style="margin-left: 10px;margin-right: 5px;vertical-align: middle;font-size: 20px">mode_edit</i>
+                    display existing records by desired criteria <p></p>
+                <i class="material-icons" style="margin-left: 10px; margin-right: 5px;vertical-align: middle;font-size: 20px">devices</i>
+                    edit/delete and manage all existing student records in the database ...
+            </p>
+            <!-- Button for login part panel -->
+            <button class="showBtn"> Login form > </button>
+        </div>
+
+        <div class="rightPanel">
+            <div class="form-popup" id="myForm">
+                <!-- action="/action_page.php" -->
+                <form class="form-container" action="/action.html" method="GET" >
+                    <p> </p>
+                    <p>Login</p>
+
+                    <label for="email">E-mail</label>
+                    <input type="text" placeholder=" Enter E-mail" name="email">
+
+                    <label for="psw">Password</label>
+                    <input type="password" placeholder=" Enter Password" name="psw">
+
+                    <button type="submit" class="btn">Login</button>
+                    <button type="button" class="cancel" onclick="closeForm()">Close</button>
+                    <br>
+                    <div class="temp" ><label >E-mail: daniel4molnar@gmail.com, password: 4jQuery4</label></div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="jscript/login.js"> </script>
+
+</body>
+
+</html>

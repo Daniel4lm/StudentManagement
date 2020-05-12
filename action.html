@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Action </title>
+
+    <style>
+        body {
+            font-family: 'Ubuntu', Arial, 'Trebuchet MS', Tahoma, Verdana, sans-serif;
+            color: #e7e7e7;
+            margin: 0;
+        }
+
+        .info {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            padding: 10px;
+            font-style: normal;
+            font-family: 'Ubuntu';
+            border: 2px solid #e8e8e8;
+            background: rgb(0, 0, 0, 20%);
+            
+        }
+
+        .info p {
+            text-align: center;
+            padding: 5px;
+            margin: 10px auto;
+            width: 60%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <img src="pictures/wallpaperflare.main.jpg" style="width:100%">
+
+    <div id="info" class="info">
+
+        <p id="userNum"></p>
+        <p id="userPass"></p>
+    </div>
+
+    <script>
+
+        //alert(document.body.getElementsByTagName("P")[].innerHTML);
+        var parameters = location.search.substring(1).split("&");
+        var paramStr = [parameters[0].split("="), parameters[1].split("=")];
+        document.getElementsByTagName("p")[0].innerHTML = "You have successfully logged in with e-mail: <strong>" + paramStr[0][1] +
+            "</strong> and password:";
+        document.getElementById("userPass").innerHTML = "<b><i>" + paramStr[1][1] + "</i></b>";
+
+    </script>
+
+</body>
+
+</html>
